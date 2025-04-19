@@ -12,7 +12,9 @@ export default function Share() {
   const handleSubmit = async () => {
     if (!text.trim()) return;
     try {
-      const res = await axios.post("http://localhost:4000/api/share", { text });
+      const res = await axios.post(import.meta.env.VITE_API_URL + "/share", {
+        text,
+      });
       setCode(res.data.code);
       navigator.clipboard.writeText(res.data.code);
       setCopied(true);
