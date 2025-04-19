@@ -1,76 +1,60 @@
 import { Link } from "react-router-dom";
-import { FaGithub, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { Github, Twitter, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-opacity-70 w-full bg-black px-4 py-6 text-white">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row md:items-start md:gap-0">
-        {/* Logo and Description */}
-        <div className="text-center md:text-left">
-          <h4 className="mb-1 text-xl font-bold text-indigo-400">TextBridge</h4>
-          <p className="max-w-xs text-sm text-gray-500">
-            Secure, seamless text sharing across devices. Just copy and paste.
+    <footer className="w-full bg-black/80 px-4 py-10 text-white backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-10 text-center md:flex-row md:text-left">
+        {/* Left: Brand + tagline */}
+        <div className="max-w-sm">
+          <h4 className="text-2xl font-bold text-indigo-400">ClipCloud</h4>
+          <p className="mt-2 text-sm text-gray-400">
+            A secure bridge for sharing notes, code, and files across your
+            devices.
           </p>
+          <p className="mt-3 text-xs text-gray-600">Made with ❤️ by Rajat</p>
         </div>
 
-        {/* Quick Links */}
-        <div className="text-center md:text-left">
-          <h5 className="mb-2 text-sm font-semibold text-gray-300">
-            Quick Links
-          </h5>
-          <ul className="space-y-1 text-xs text-gray-400">
-            <li>
-              <Link to="/" className="hover:text-indigo-300">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/share" className="hover:text-indigo-300">
-                Share
-              </Link>
-            </li>
-            <li>
-              <Link to="/receive" className="hover:text-indigo-300">
-                Receive
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Social Icons */}
-        <div className="text-center md:text-left">
-          <h5 className="mb-2 text-sm font-semibold text-gray-300">Connect</h5>
-          <div className="flex space-x-4 text-xl">
+        {/* Right: Socials + Privacy */}
+        <div className="flex flex-col items-center gap-4 md:items-end">
+          <div className="flex gap-4">
             <a
               href="https://github.com/Therajat14"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-indigo-400"
+              className="text-gray-400 transition hover:text-indigo-400"
             >
-              <FaGithub />
+              <Github className="h-5 w-5" />
             </a>
             <a
               href="https://x.com/RajatCode14"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-indigo-400"
+              className="text-gray-400 transition hover:text-indigo-400"
             >
-              <FaTwitter />
+              <Twitter className="h-5 w-5" />
             </a>
             <a
               href="mailto:rajat.code14@gmail.com"
-              className="hover:text-indigo-400"
+              className="text-gray-400 transition hover:text-indigo-400"
             >
-              <FaEnvelope />
+              <Mail className="h-5 w-5" />
             </a>
+          </div>
+          <div className="space-x-3 text-xs text-gray-500">
+            <Link to="/privacy" className="hover:text-indigo-300">
+              Privacy
+            </Link>
+            <Link to="/terms" className="hover:text-indigo-300">
+              Terms
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Bottom Note */}
-      <p className="mt-6 text-center text-xs text-gray-600">
-        © 2025 TextBridge. All rights reserved.
-      </p>
+      <div className="mt-10 border-t border-gray-800 pt-4 text-center text-xs text-gray-600">
+        © {new Date().getFullYear()} ClipCloud. All rights reserved.
+      </div>
     </footer>
   );
 };

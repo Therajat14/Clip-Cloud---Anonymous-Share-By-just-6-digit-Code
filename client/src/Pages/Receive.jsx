@@ -7,6 +7,8 @@ export default function Receive() {
   const [codeArray, setCodeArray] = useState(["", "", "", "", "", ""]);
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
+  const [file, setFile] = useState(null);
+  const [downloadUrl, setDownloadUrl] = useState("");
   const inputRefs = useRef([]);
 
   const handleChange = (index, value) => {
@@ -14,7 +16,6 @@ export default function Receive() {
     const newCode = [...codeArray];
     newCode[index] = value;
     setCodeArray(newCode);
-
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -27,20 +28,42 @@ export default function Receive() {
   };
 
   const handleFetch = async () => {
-    const code = codeArray.join("").trim().toLocaleUpperCase();
+    const code = codeArray.join("").trim().toUpperCase();
     if (code.length !== 6) return;
 
     try {
       const res = await axios.get(
         import.meta.env.VITE_API_URL + `/share/${code}`,
       );
-      setText(res.data.text);
-      navigator.clipboard.writeText(res.data.text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+
+      setText(res.data.text || "");
+      setCopied(false);
+      setFile(null);
+      setDownloadUrl("");
+
+      if (res.data.text) {
+        navigator.clipboard.writeText(res.data.text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      }
+
+      if (res.data.file && res.data.file.data) {
+        const byteCharacters = atob(res.data.file.data);
+        const byteNumbers = new Array(byteCharacters.length)
+          .fill()
+          .map((_, i) => byteCharacters.charCodeAt(i));
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: res.data.file.type });
+
+        const url = URL.createObjectURL(blob);
+        setDownloadUrl(url);
+        setFile(res.data.file);
+      }
     } catch (err) {
       console.error(err);
       setText("Code not found or expired.");
+      setFile(null);
+      setDownloadUrl("");
     }
   };
 
@@ -51,17 +74,16 @@ export default function Receive() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden bg-gray-950 text-white">
-      {/* Navbar */}
+    <div className="flex min-h-screen flex-col bg-gray-950 text-white">
       <Navbar />
-      {/* Main Content */}
+
       <main className="flex flex-grow flex-col items-center justify-center px-4 pt-32 pb-20 text-center">
         <div className="w-full max-w-3xl">
           <h2 className="mb-6 text-4xl font-bold text-indigo-300">
             Retrieve Your Text
           </h2>
-          <p className="mb-6 text-gray-300">
-            Enter the 6-character code you received to access your shared text.
+          <p className="mb-6 text-gray-400">
+            Enter the 6-character code to access shared content.
           </p>
 
           <div className="mb-6 flex justify-center gap-3">
@@ -73,39 +95,56 @@ export default function Receive() {
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
                 maxLength={1}
-                className="h-12 w-12 rounded-lg border border-gray-700 bg-gray-800 text-center text-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="h-12 w-12 rounded-md border border-gray-700 bg-gray-800 text-center font-mono text-xl text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             ))}
           </div>
 
           <button
             onClick={handleFetch}
-            className="w-full rounded-xl bg-indigo-600 px-6 py-3 text-lg font-semibold transition duration-300 hover:bg-indigo-700"
+            className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-lg font-semibold transition hover:bg-indigo-700"
           >
             Retrieve Text
           </button>
 
-          {text && (
+          {(text || file) && (
             <div className="mt-10 text-left">
-              <h4 className="mb-2 text-lg font-semibold text-green-400">
-                Received Text:
-              </h4>
-              <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border-4 border-slate-900 p-4 text-sm whitespace-pre-wrap text-white sm:text-base">
-                {text}
-              </div>
+              {text && (
+                <div className="mb-8 rounded-xl border border-gray-800 bg-gray-900 p-5">
+                  <h4 className="mb-3 text-lg font-semibold text-green-400">
+                    Received Text:
+                  </h4>
+                  <div className="mb-4 max-h-80 overflow-y-auto text-sm leading-relaxed whitespace-pre-wrap text-gray-100">
+                    {text}
+                  </div>
+                  <button
+                    onClick={handleManualCopy}
+                    className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700"
+                  >
+                    {copied ? "Copied!" : "Copy Text"}
+                  </button>
+                </div>
+              )}
 
-              <button
-                onClick={handleManualCopy}
-                className="rounded-full bg-indigo-500 px-4 py-2 text-sm text-white transition duration-300 hover:bg-indigo-600"
-              >
-                {copied ? "Copied!" : "Copy Text"}
-              </button>
+              {file && downloadUrl && (
+                <div className="rounded-xl border border-gray-800 bg-gray-900 p-5">
+                  <h4 className="mb-3 text-lg font-semibold text-yellow-400">
+                    Attached File:
+                  </h4>
+                  <a
+                    href={downloadUrl}
+                    download={file.name}
+                    className="inline-block rounded-md bg-indigo-100 px-5 py-2 text-sm font-medium text-gray-900 transition hover:bg-yellow-600"
+                  >
+                    📁 Download {file.name}
+                  </a>
+                </div>
+              )}
             </div>
           )}
         </div>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
