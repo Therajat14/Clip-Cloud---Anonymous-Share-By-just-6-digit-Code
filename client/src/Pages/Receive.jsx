@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Footer } from "../assets/components/Footer";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
 
 export default function Receive() {
   const [codeArray, setCodeArray] = useState(["", "", "", "", "", ""]);
@@ -51,40 +51,9 @@ export default function Receive() {
   };
 
   return (
-    <div
-      className="min-h-screen flex flex-col bg-gray-900 text-white overflow-x-hidden"
-      style={{
-        backgroundImage:
-          "url('/bg-texture.png'), radial-gradient(circle at top left, #1f2937, #111827)",
-        backgroundBlendMode: "overlay",
-        backgroundSize: "cover",
-        backgroundRepeat: "repeat",
-      }}
-    >
+    <div className="min-h-screen flex flex-col  bg-gray-950 text-white overflow-x-hidden">
       {/* Navbar */}
-      <nav className="w-full py-4 flex justify-between items-center px-4 md:px-10 bg-black bg-opacity-70 fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
-        <Link to="/" className="text-xl font-bold text-indigo-400">
-          TextBridge
-        </Link>
-        <div className="space-x-6 text-sm md:text-base">
-          <Link to="/" className="hover:text-indigo-400">
-            Home
-          </Link>
-          <Link to="/share" className="hover:text-green-400">
-            Share
-          </Link>
-          <Link to="/receive" className="hover:text-yellow-400">
-            Receive
-          </Link>
-          <Link to="/about" className="hover:text-pink-400">
-            About
-          </Link>
-          <Link to="/contact" className="hover:text-blue-400">
-            Contact
-          </Link>
-        </div>
-      </nav>
-
+      <Navbar />
       {/* Main Content */}
       <main className="flex-grow pt-32 pb-20 flex flex-col items-center justify-center text-center px-4">
         <div className="w-full max-w-3xl">
