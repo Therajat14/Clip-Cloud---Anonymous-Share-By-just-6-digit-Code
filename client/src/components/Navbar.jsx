@@ -9,7 +9,7 @@ export const Navbar = () => {
       : "text-white hover:text-" + color + "-400";
 
   return (
-    <nav className="w-full py-4 flex justify-between items-center px-4 md:px-10 bg-black bg-opacity-70 fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
+    <nav className="bg-opacity-70 fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between bg-black px-4 py-4 backdrop-blur-md md:px-10">
       <NavLink to="/" className="text-xl font-bold text-indigo-400">
         TextBridge
       </NavLink>

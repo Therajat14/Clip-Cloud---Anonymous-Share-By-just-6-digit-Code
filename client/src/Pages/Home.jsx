@@ -6,7 +6,7 @@ import { Navbar } from "../components/Navbar";
 export default function Home() {
   return (
     <div
-      className="min-h-screen bg-gray-900 text-white  overflow-x-hidden relative"
+      className="relative min-h-screen overflow-x-hidden bg-gray-900 text-white"
       style={{
         backgroundImage:
           "url('/bg-texture.png'), radial-gradient(circle at top left, #1f2937, #111827)",
@@ -19,22 +19,22 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="pt-32 pb-20 text-center w-full max-w-4xl mx-auto z-10 px-4">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+      <div className="z-10 mx-auto w-full max-w-4xl px-4 pt-32 pb-20 text-center">
+        <h1 className="mb-6 text-5xl leading-tight font-bold md:text-6xl">
           Welcome to <span className="text-indigo-400">TextBridge</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-10 text-gray-300">
+        <p className="mb-10 text-xl text-gray-300 md:text-2xl">
           Seamlessly share text between your devices using simple, secure codes.
           No logins. No sync. Just copy and retrieve.
         </p>
-        <div className="flex flex-col md:flex-row justify-center gap-6">
+        <div className="flex flex-col justify-center gap-6 md:flex-row">
           <Link to="/share">
-            <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition duration-300 shadow-lg">
+            <button className="rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:bg-indigo-700">
               Generate Code
             </button>
           </Link>
           <Link to="/receive">
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition duration-300 shadow-lg">
+            <button className="rounded-xl bg-green-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:bg-green-700">
               Enter Code to Receive
             </button>
           </Link>
@@ -42,18 +42,18 @@ export default function Home() {
       </div>
 
       {/* What We Do Section */}
-      <section className="max-w-6xl mx-auto px-8 py-20 text-center ">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+      <section className="mx-auto max-w-6xl px-8 py-20 text-center">
+        <h2 className="mb-6 text-3xl font-bold md:text-4xl">
           What TextBridge Does
         </h2>
-        <p className="text-gray-300 mb-10">
+        <p className="mb-10 text-gray-300">
           TextBridge allows you to quickly and securely share plain text or code
           snippets across devices using short codes. No setup, no account, just
           instant transfer.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-semibold mb-2 text-indigo-300">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold text-indigo-300">
               Simple & Secure
             </h3>
             <p className="text-gray-400">
@@ -61,8 +61,8 @@ export default function Home() {
               to access it on another device.
             </p>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-semibold mb-2 text-green-300">
+          <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold text-green-300">
               Instant Text Transfer
             </h3>
             <p className="text-gray-400">
@@ -74,27 +74,27 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="max-w-6xl mx-auto px-8 py-20 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-semibold text-pink-300 mb-2">
+      <section className="mx-auto max-w-6xl px-8 py-20 text-center">
+        <h2 className="mb-6 text-3xl font-bold md:text-4xl">How It Works</h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold text-pink-300">
               Paste Text
             </h3>
             <p className="text-gray-400">
               Paste your message or code snippet into the Share page.
             </p>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-semibold text-yellow-300 mb-2">
+          <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold text-yellow-300">
               Generate Short Code
             </h3>
             <p className="text-gray-400">
               Click 'Generate' and you'll get a secure code to share.
             </p>
           </div>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-semibold text-blue-300 mb-2">
+          <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
+            <h3 className="mb-2 text-xl font-semibold text-blue-300">
               Retrieve on Any Device
             </h3>
             <p className="text-gray-400">

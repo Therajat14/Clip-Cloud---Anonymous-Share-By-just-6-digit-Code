@@ -32,7 +32,7 @@ export default function Receive() {
 
     try {
       const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/share/${code}`
+        import.meta.env.VITE_API_URL + `/share/${code}`,
       );
       setText(res.data.text);
       navigator.clipboard.writeText(res.data.text);
@@ -51,20 +51,20 @@ export default function Receive() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col  bg-gray-950 text-white overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-gray-950 text-white">
       {/* Navbar */}
       <Navbar />
       {/* Main Content */}
-      <main className="flex-grow pt-32 pb-20 flex flex-col items-center justify-center text-center px-4">
+      <main className="flex flex-grow flex-col items-center justify-center px-4 pt-32 pb-20 text-center">
         <div className="w-full max-w-3xl">
-          <h2 className="text-4xl font-bold mb-6 text-indigo-300">
+          <h2 className="mb-6 text-4xl font-bold text-indigo-300">
             Retrieve Your Text
           </h2>
-          <p className="text-gray-300 mb-6">
+          <p className="mb-6 text-gray-300">
             Enter the 6-character code you received to access your shared text.
           </p>
 
-          <div className="flex justify-center gap-3 mb-6">
+          <div className="mb-6 flex justify-center gap-3">
             {codeArray.map((char, i) => (
               <input
                 key={i}
@@ -73,30 +73,30 @@ export default function Receive() {
                 onChange={(e) => handleChange(i, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(i, e)}
                 maxLength={1}
-                className="w-12 h-12 text-center text-xl bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="h-12 w-12 rounded-lg border border-gray-700 bg-gray-800 text-center text-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
             ))}
           </div>
 
           <button
             onClick={handleFetch}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-xl font-semibold text-lg transition duration-300"
+            className="w-full rounded-xl bg-indigo-600 px-6 py-3 text-lg font-semibold transition duration-300 hover:bg-indigo-700"
           >
             Retrieve Text
           </button>
 
           {text && (
             <div className="mt-10 text-left">
-              <h4 className="text-lg font-semibold text-green-400 mb-2">
+              <h4 className="mb-2 text-lg font-semibold text-green-400">
                 Received Text:
               </h4>
-              <div className=" border-4 border-slate-900 rounded-lg text-white text-sm sm:text-base whitespace-pre-wrap p-4 mb-4 max-h-96 overflow-y-auto">
+              <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border-4 border-slate-900 p-4 text-sm whitespace-pre-wrap text-white sm:text-base">
                 {text}
               </div>
 
               <button
                 onClick={handleManualCopy}
-                className="text-sm bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-full text-white transition duration-300"
+                className="rounded-full bg-indigo-500 px-4 py-2 text-sm text-white transition duration-300 hover:bg-indigo-600"
               >
                 {copied ? "Copied!" : "Copy Text"}
               </button>
