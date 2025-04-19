@@ -90,9 +90,10 @@ export default function Receive() {
               <h4 className="text-lg font-semibold text-green-400 mb-2">
                 Received Text:
               </h4>
-              <div className="bg-transparent text-white text-sm sm:text-base whitespace-pre-wrap mb-4">
+              <div className=" border-4 border-slate-900 rounded-lg text-white text-sm sm:text-base whitespace-pre-wrap p-4 mb-4 max-h-96 overflow-y-auto">
                 {text}
               </div>
+
               <button
                 onClick={handleManualCopy}
                 className="text-sm bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-full text-white transition duration-300"
