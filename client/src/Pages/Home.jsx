@@ -31,7 +31,7 @@ export default function Home() {
         <div className="flex flex-col justify-center gap-6 md:flex-row">
           <Link to="/share">
             <button className="rounded-xl bg-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition duration-300 hover:bg-indigo-700">
-              Generate Code
+              Share Text or File
             </button>
           </Link>
           <Link to="/receive">

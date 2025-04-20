@@ -42,10 +42,10 @@ export const Footer = () => {
             </a>
           </div>
           <div className="space-x-3 text-xs text-gray-500">
-            <Link to="/privacy" className="hover:text-indigo-300">
+            <Link to="/privacy&terms" className="hover:text-indigo-300">
               Privacy
             </Link>
-            <Link to="/terms" className="hover:text-indigo-300">
+            <Link to="/privacy&terms" className="hover:text-indigo-300">
               Terms
             </Link>
           </div>
