@@ -11,7 +11,7 @@ export default function Share() {
   const [showFileInput, setShowFileInput] = useState(false);
   const [file, setFile] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // NEW loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!text.trim() || isLoading) return;
@@ -148,6 +148,12 @@ export default function Share() {
               >
                 {copied ? "Copied!" : "Copy Code"}
               </button>
+
+              <div className="mt-6 rounded-lg border border-yellow-700 bg-yellow-900/60 p-4 text-sm text-yellow-100">
+                ⚠️ This code is <strong>valid for one-time use</strong> and will
+                automatically expire in <strong>10 minutes</strong> for your
+                security.
+              </div>
             </div>
           )}
         </div>

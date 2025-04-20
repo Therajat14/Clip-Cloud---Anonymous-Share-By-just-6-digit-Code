@@ -93,7 +93,7 @@ export default function Receive() {
       <main className="flex flex-grow flex-col items-center justify-center px-4 pt-32 pb-20 text-center">
         <div className="w-full max-w-3xl">
           <h2 className="mb-6 text-4xl font-bold text-indigo-300">
-            Retrieve Your Text
+            Retrieve Your Content
           </h2>
           <p className="mb-6 text-gray-400">
             Enter the 6-character code to access shared content.
@@ -128,7 +128,7 @@ export default function Receive() {
                 Retrieving...
               </span>
             ) : (
-              "Retrieve Text"
+              "Retrieve Content"
             )}
           </button>
 

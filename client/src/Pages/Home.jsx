@@ -23,11 +23,10 @@ export default function Home() {
           Welcome to <span className="text-indigo-400">ClipCloud</span>
         </h1>
         <p className="mb-10 text-xl text-gray-300 md:text-2xl">
-          Seamlessly share{" "}
-          <span className="font-semibold text-white">text</span> and{" "}
-          <span className="font-semibold text-white">files</span> across devices
-          using simple, secure codes. No logins. No sync. Just copy, drop, and
-          retrieve.
+          Quickly send <span className="font-semibold text-white">text</span> or{" "}
+          <span className="font-semibold text-white">files</span> between
+          devices using a secure 6-character code. Each code is valid for one
+          use and expires after 10 minutes.
         </p>
         <div className="flex flex-col justify-center gap-6 md:flex-row">
           <Link to="/share">
@@ -43,17 +42,20 @@ export default function Home() {
         </div>
       </div>
 
-      {/* What We Do Section */}
+      {/* What Is ClipCloud Section */}
       <section className="mx-auto max-w-6xl px-8 py-20 text-center">
         <h2 className="mb-6 text-3xl font-bold md:text-4xl">
-          What ClipCloud Does
+          What Is ClipCloud?
         </h2>
-        <p className="mb-10 text-gray-300">
-          ClipCloud lets you instantly share <strong>text messages</strong>,{" "}
-          <strong>code snippets</strong>, and even{" "}
-          <strong>files up to 5MB</strong> using short codes. It's the easiest
-          way to transfer content between your phone, laptop, or any device —
-          securely and without logging in.
+        <p className="mb-10 text-lg text-gray-300">
+          ClipCloud lets you send a text/code snippet or small file to yourself
+          (or someone else) using a 6-digit access code. It’s perfect for moving
+          content between your laptop, phone, or tablet — fast, simple, and
+          private.
+          <br />
+          <br />
+          All codes are one-time use and valid for 10 minutes to keep your
+          content secure and temporary.
         </p>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
@@ -83,28 +85,29 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
             <h3 className="mb-2 text-xl font-semibold text-pink-300">
-              Paste or Upload
+              Step 1: Paste or Upload
             </h3>
             <p className="text-gray-400">
-              Enter your message or attach a file on the Share page.
+              Go to the Share page. Enter your message or attach a file up to
+              5MB.
             </p>
           </div>
           <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
             <h3 className="mb-2 text-xl font-semibold text-yellow-300">
-              Generate Code
+              Step 2: Get a One-Time Code
             </h3>
             <p className="text-gray-400">
-              ClipCloud will give you a unique short code to access your
-              content.
+              We’ll generate a 6-character code that works once and expires
+              after 10 minutes.
             </p>
           </div>
           <div className="rounded-xl bg-gray-800 p-6 shadow-lg">
             <h3 className="mb-2 text-xl font-semibold text-blue-300">
-              Retrieve Anywhere
+              Step 3: Access Before It Expires
             </h3>
             <p className="text-gray-400">
-              Use the code on any device to retrieve the text or download the
-              file instantly.
+              Enter the code on any device within 10 minutes to retrieve your
+              text or download the file.
             </p>
           </div>
         </div>
