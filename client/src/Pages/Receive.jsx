@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { Loader2 } from "lucide-react";
 
 export default function Receive() {
   const [codeArray, setCodeArray] = useState(["", "", "", "", "", ""]);
@@ -9,13 +10,25 @@ export default function Receive() {
   const [copied, setCopied] = useState(false);
   const [file, setFile] = useState(null);
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [loading, setLoading] = useState(false); // 👈 loading state
   const inputRefs = useRef([]);
 
   const handleChange = (index, value) => {
     if (!/^[a-zA-Z0-9]?$/.test(value)) return;
+
+    // If user starts typing at index 0, reset the whole input
+    if (index === 0 && value) {
+      const newCode = ["", "", "", "", "", ""];
+      newCode[0] = value.toUpperCase();
+      setCodeArray(newCode);
+      inputRefs.current[1]?.focus();
+      return;
+    }
+
     const newCode = [...codeArray];
-    newCode[index] = value;
+    newCode[index] = value.toUpperCase();
     setCodeArray(newCode);
+
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -29,32 +42,32 @@ export default function Receive() {
 
   const handleFetch = async () => {
     const code = codeArray.join("").trim().toUpperCase();
-    if (code.length !== 6) return;
+    if (code.length !== 6 || loading) return;
+
+    setLoading(true);
+    setText("");
+    setCopied(false);
+    setFile(null);
+    setDownloadUrl("");
 
     try {
       const res = await axios.get(
         import.meta.env.VITE_API_URL + `/share/${code}`,
       );
 
-      setText(res.data.text || "");
-      setCopied(false);
-      setFile(null);
-      setDownloadUrl("");
-
       if (res.data.text) {
+        setText(res.data.text);
         navigator.clipboard.writeText(res.data.text);
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
       }
 
-      if (res.data.file && res.data.file.data) {
+      if (res.data.file?.data) {
         const byteCharacters = atob(res.data.file.data);
-        const byteNumbers = new Array(byteCharacters.length)
-          .fill()
-          .map((_, i) => byteCharacters.charCodeAt(i));
-        const byteArray = new Uint8Array(byteNumbers);
+        const byteArray = new Uint8Array(
+          Array.from(byteCharacters).map((c) => c.charCodeAt(0)),
+        );
         const blob = new Blob([byteArray], { type: res.data.file.type });
-
         const url = URL.createObjectURL(blob);
         setDownloadUrl(url);
         setFile(res.data.file);
@@ -62,8 +75,8 @@ export default function Receive() {
     } catch (err) {
       console.error(err);
       setText("Code not found or expired.");
-      setFile(null);
-      setDownloadUrl("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,9 +115,21 @@ export default function Receive() {
 
           <button
             onClick={handleFetch}
-            className="w-full rounded-lg bg-indigo-600 px-6 py-3 text-lg font-semibold transition hover:bg-indigo-700"
+            disabled={loading}
+            className={`w-full rounded-lg px-6 py-3 text-lg font-semibold transition ${
+              loading
+                ? "cursor-not-allowed bg-indigo-800 text-indigo-300"
+                : "bg-indigo-600 text-white hover:bg-indigo-700"
+            }`}
           >
-            Retrieve Text
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Retrieving...
+              </span>
+            ) : (
+              "Retrieve Text"
+            )}
           </button>
 
           {(text || file) && (

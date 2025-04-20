@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 
 export default function Share() {
   const [text, setText] = useState("");
@@ -11,24 +11,23 @@ export default function Share() {
   const [showFileInput, setShowFileInput] = useState(false);
   const [file, setFile] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // NEW loading state
 
   const handleSubmit = async () => {
-    if (!text.trim()) return;
+    if (!text.trim() || isLoading) return;
 
+    setIsLoading(true);
+    setErrorMsg("");
     const formData = new FormData();
     formData.append("text", text);
-    if (file) {
-      formData.append("file", file);
-    }
+    if (file) formData.append("file", file);
 
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + "/share",
         formData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         },
       );
       setCode(res.data.code);
@@ -38,6 +37,8 @@ export default function Share() {
     } catch (err) {
       console.error(err);
       setErrorMsg("Something went wrong. Try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -112,9 +113,21 @@ export default function Share() {
 
           <button
             onClick={handleSubmit}
-            className="w-full rounded-xl bg-green-600 px-6 py-3 text-lg font-semibold transition duration-300 hover:bg-green-700"
+            disabled={isLoading}
+            className={`w-full rounded-xl px-6 py-3 text-lg font-semibold transition duration-300 ${
+              isLoading
+                ? "cursor-not-allowed bg-green-800 text-green-300"
+                : "bg-green-600 text-white hover:bg-green-700"
+            }`}
           >
-            Generate Code
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Generating...
+              </span>
+            ) : (
+              "Generate Code"
+            )}
           </button>
 
           {errorMsg && <p className="mt-4 text-sm text-red-500">{errorMsg}</p>}
