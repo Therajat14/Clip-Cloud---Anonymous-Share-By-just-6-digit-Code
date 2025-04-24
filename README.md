@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://text-bridge-eight.vercel.app/" target="_blank" rel="noopener noreferrer">
-    <img src="/client/public/screencapture-text-bridge-eight-vercel-app-2025-04-20-20_23_29.png" alt="ClipCloud Cover" width="600" />
+    <img src="/client/public/screencapture-text-bridge-eight-vercel-app-2025-04-20-20_23_29.png" alt="ClipCloud Cover" style="width:100%; height:auto;" />
   </a>
 </p>
 
