@@ -7,9 +7,12 @@ import Share from "./Pages/Share";
 import Receive from "./Pages/Receive";
 import NotFound from "./Pages/NotFound";
 import PrivacyTerms from "./Pages/PrivacyTerms";
+import AppInitializer from "./components/AppInitializer";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <AppInitializer />
+
+    {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/share" element={<Share />} />
@@ -17,6 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="*" element={<NotFound />} />
         <Route path="/privacy&terms" element={<PrivacyTerms />} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> */}
   </React.StrictMode>,
 );
