@@ -15,7 +15,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://text-bridge-eight.vercel.app",
-      "https://www.incogshare.fun/",
+      "https://www.incogshare.fun",
     ],
   })
 );
