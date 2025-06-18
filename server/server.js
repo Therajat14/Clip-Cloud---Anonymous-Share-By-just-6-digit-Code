@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://text-bridge-eight.vercel.app, incogshare.fun",
+      "https://text-bridge-eight.vercel.app, https://www.incogshare.fun/",
     ],
   })
 );
