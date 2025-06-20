@@ -13,57 +13,59 @@ const AppInitializer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
-  const [statusMessage, setStatusMessage] = useState("Connecting to server..."); // New state for dynamic messages
+  const [statusMessage, setStatusMessage] = useState("Getting things ready..."); // Updated initial message
   const MAX_RETRIES = 3;
   const RETRY_INTERVAL = 3000;
 
   useEffect(() => {
-    let messageTimer; // Timer for updating status messages
+    let messageTimer;
 
     const checkServerStatus = async () => {
       setLoading(true);
       setError(null);
-      setStatusMessage("Warming up the server... Please hold on!"); // Initial positive message
+      setStatusMessage("Starting up IncogShare. This won't take long!"); // Clear and positive initial message
 
-      // Optionally update message after a delay if it's taking long
       messageTimer = setTimeout(() => {
-        setStatusMessage("This is a one-time setup. Almost there!");
-      }, RETRY_INTERVAL * 2); // Show a new message after 6 seconds if still loading
+        setStatusMessage(
+          "Just a moment! We're spinning up the server for you.",
+        );
+      }, RETRY_INTERVAL * 2);
 
       try {
         const response = await axios.get(
           import.meta.env.VITE_API_URL + "/health",
         );
         if (response.status === 200) {
-          clearTimeout(messageTimer); // Clear any pending message updates
-          setStatusMessage("Igniting the engines! ClipCloud is starting up..."); // Final positive message
-          // Give a very short delay to show the "active" message before rendering full app
+          clearTimeout(messageTimer);
+          setStatusMessage("Almost there! Launching IncogShare..."); // Stronger final message
           setTimeout(() => {
             setIsServerActive(true);
-            setLoading(false); // Stop loading after successful connection and message display
-          }, 500); // Display "active" message for 0.5 seconds
+            setLoading(false);
+          }, 500);
         } else {
           throw new Error("Server not responding as expected.");
         }
       } catch (err) {
-        clearTimeout(messageTimer); // Clear any pending message updates
+        clearTimeout(messageTimer);
         console.error("Server health check failed:", err);
         if (retryCount < MAX_RETRIES) {
           setRetryCount((prevCount) => prevCount + 1);
+          // More reassuring retry message
           setStatusMessage(
-            `Connection failed, retrying (${retryCount + 1}/${MAX_RETRIES})...`,
+            `Connection attempt failed. Retrying (${retryCount + 1} of ${MAX_RETRIES})...`,
           );
           setTimeout(checkServerStatus, RETRY_INTERVAL);
         } else {
-          setError("Failed to connect to the server. Please try again later.");
-          setLoading(false); // Stop loading on final error
+          setError(
+            "Failed to connect to IncogShare. Please check your internet and try again.",
+          ); // More user-friendly error
+          setLoading(false);
         }
       }
     };
 
     checkServerStatus();
 
-    // Cleanup function for the useEffect hook
     return () => {
       clearTimeout(messageTimer);
     };
@@ -75,10 +77,8 @@ const AppInitializer = () => {
         <div className="flex flex-col items-center">
           <Loader2 className="h-10 w-10 animate-spin text-indigo-400" />
           <p className="mt-4 text-center text-lg">{statusMessage}</p>
-          {/* We can't show a 100% progress for a simple HTTP request,
-              but the changing message provides a sense of progress. */}
           <p className="mt-2 text-sm text-gray-400">
-            This is a one-time initialization.
+            This is a quick, one-time setup to get started.
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ const AppInitializer = () => {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-gray-950 px-4 text-center text-white">
         <h1 className="mb-4 text-3xl font-bold text-red-500">
-          Connection Error
+          Connection Problem
         </h1>
         <p className="text-lg text-gray-300">{error}</p>
         <button
@@ -98,17 +98,16 @@ const AppInitializer = () => {
             setIsServerActive(false);
             setLoading(true);
             setError(null);
-            setStatusMessage("Connecting to server..."); // Reset message for retry
+            setStatusMessage("Attempting to reconnect..."); // Reset message for retry
           }}
           className="mt-6 rounded-md bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700"
         >
-          Retry Connection
+          Try Again
         </button>
       </div>
     );
   }
 
-  // If server is active, render the main application
   return (
     <BrowserRouter>
       <Routes>

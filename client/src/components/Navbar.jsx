@@ -11,7 +11,7 @@ export const Navbar = () => {
   return (
     <nav className="bg-opacity-70 fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-between bg-black px-4 py-4 backdrop-blur-md md:px-10">
       <NavLink to="/" className="text-xl font-bold text-indigo-400">
-        ClipCloud
+        IncogShare
       </NavLink>
       <div className="space-x-6 text-sm md:text-base">
         <NavLink

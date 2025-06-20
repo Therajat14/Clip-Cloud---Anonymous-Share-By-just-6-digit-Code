@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-10 text-center md:flex-row md:text-left">
         {/* Left: Brand + tagline */}
         <div className="max-w-sm">
-          <h4 className="text-2xl font-bold text-indigo-400">ClipCloud</h4>
+          <h4 className="text-2xl font-bold text-indigo-400">IncogShare</h4>
           <p className="mt-2 text-sm text-gray-400">
             A secure bridge for sharing notes, code, and files across your
             devices.
@@ -53,7 +53,7 @@ export const Footer = () => {
       </div>
 
       <div className="mt-10 border-t border-gray-800 pt-4 text-center text-xs text-gray-600">
-        © {new Date().getFullYear()} ClipCloud. All rights reserved.
+        © {new Date().getFullYear()} IncogShare. All rights reserved.
       </div>
     </footer>
   );

@@ -20,7 +20,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="z-10 mx-auto w-full max-w-4xl px-4 pt-32 pb-20 text-center">
         <h1 className="mb-6 text-5xl leading-tight font-bold md:text-6xl">
-          Welcome to <span className="text-indigo-400">ClipCloud</span>
+          Welcome to <span className="text-indigo-400">incogShare</span>
         </h1>
         <p className="mb-10 text-xl text-gray-300 md:text-2xl">
           Quickly send <span className="font-semibold text-white">text</span> or{" "}
@@ -42,13 +42,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* What Is ClipCloud Section */}
+      {/* What Is incogShare Section */}
       <section className="mx-auto max-w-6xl px-8 py-20 text-center">
         <h2 className="mb-6 text-3xl font-bold md:text-4xl">
-          What Is ClipCloud?
+          What Is incogShare?
         </h2>
         <p className="mb-10 text-lg text-gray-300">
-          ClipCloud lets you send a text/code snippet or small file to yourself
+          incogShare lets you send a text/code snippet or small file to yourself
           (or someone else) using a 6-digit access code. It’s perfect for moving
           content between your laptop, phone, or tablet — fast, simple, and
           private.
